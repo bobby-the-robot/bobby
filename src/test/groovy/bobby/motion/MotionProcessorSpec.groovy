@@ -36,7 +36,7 @@ class MotionProcessorSpec extends Specification {
 
     def "test motion backward"() {
         given:
-        List<Step> steps = [new Step(Speed.AVERAGE, Direction.BACKWARD)]
+        List<Step> steps = [new Step(Speed.AVERAGE, Direction.BACK)]
 
         when:
         motionProcessor.process()

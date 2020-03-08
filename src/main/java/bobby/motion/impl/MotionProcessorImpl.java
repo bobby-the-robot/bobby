@@ -41,7 +41,7 @@ public class MotionProcessorImpl implements MotionProcessor {
             case LEFT:
                 trackController.left();
                 break;
-            case BACKWARD:
+            case BACK:
                 trackController.backward();
                 break;
             default:

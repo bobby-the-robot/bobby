@@ -34,7 +34,7 @@ public class SoundSensorModuleImpl implements SoundSensorModule {
 
         if (lastExecuted == null || now.minusMillis(eventInterval).isAfter(lastExecuted)) {
             lastExecuted = now;
-            Step backward = new Step(Speed.SLOW, Direction.BACKWARD);
+            Step backward = new Step(Speed.SLOW, Direction.BACK);
             List<Step> sequence = List.of(backward);
             route.addSequence(sequence);
         }

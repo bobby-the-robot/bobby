@@ -18,7 +18,7 @@ class SoundSensorModuleSpec extends Specification {
 
     def "test registerEvent()"() {
         given:
-        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACKWARD)]
+        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACK)]
 
         when:
         sensorModule.registerEvent()
@@ -30,7 +30,7 @@ class SoundSensorModuleSpec extends Specification {
 
     def "test registerEvent() for 2 sequential events more frequent than allowed interval"() {
         given: 'event interval is 1000 ms'
-        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACKWARD)]
+        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACK)]
 
         when:
         sensorModule.registerEvent()
@@ -44,7 +44,7 @@ class SoundSensorModuleSpec extends Specification {
     def "test registerEvent() for 2 sequential events matching interval"() {
         given: 'event interval is 0'
         SoundSensorModule sensorModule = new SoundSensorModuleImpl(0, route)
-        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACKWARD)]
+        List<Step> sequence = [new Step(Speed.SLOW, Direction.BACK)]
 
         when:
         sensorModule.registerEvent()

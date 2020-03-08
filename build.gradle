@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'com.pi4j:pi4j-core:1.2'
 	//lombok
 	compileOnly 'org.projectlombok:lombok'

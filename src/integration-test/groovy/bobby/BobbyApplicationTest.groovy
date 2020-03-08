@@ -6,6 +6,7 @@ import org.springframework.test.context.ContextConfiguration
 import bobby.configuration.ControllerTestConfiguration
 import bobby.configuration.TrackConfigurationProperties
 import bobby.configuration.TrackControllerConfiguration
+import bobby.configuration.WebSocketConfiguration
 import bobby.core.Controller
 import spock.lang.Specification
 
@@ -13,8 +14,9 @@ import spock.lang.Specification
 @ContextConfiguration(classes = [
         BobbyApplication,
         ControllerTestConfiguration,
+        TrackConfigurationProperties,
         TrackControllerConfiguration,
-        TrackConfigurationProperties
+        WebSocketConfiguration,
 ])
 class BobbyApplicationTest extends Specification {
 

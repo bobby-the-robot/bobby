@@ -21,7 +21,8 @@ motion:
         front: 3
         rear: 4
       left:
-        front: 5
+        #front: 5
+        front: 27
         rear: 6
 
 remote:

@@ -22,8 +22,9 @@ motion:
         rear: 4
       left:
         #front: 5
-        front: 27
-        rear: 6
+        front: 25
+        #rear: 6
+        rear: 26
 
 remote:
   controllerUrl: ws://bobby-remote-stage.herokuapp.com/client

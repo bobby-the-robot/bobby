@@ -6,7 +6,7 @@ operations:
 
 sensor:
   distance:
-    pin: 0
+    #pin: 0
   motion:
     pin: 1
     interval: 1000

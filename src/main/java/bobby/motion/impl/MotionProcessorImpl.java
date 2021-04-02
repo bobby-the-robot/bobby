@@ -13,7 +13,7 @@ import java.util.List;
 public class MotionProcessorImpl implements MotionProcessor {
 
     private final Route route;
-    private final TrackController trackController;
+    private final WheelController wheelController;
 
     @Override
     public void process() {
@@ -33,16 +33,16 @@ public class MotionProcessorImpl implements MotionProcessor {
 
         switch(direction) {
             case FORWARD:
-                trackController.forward();
+                wheelController.forward();
                 break;
             case RIGHT:
-                trackController.right();
+                wheelController.right();
                 break;
             case LEFT:
-                trackController.left();
+                wheelController.left();
                 break;
             case BACK:
-                trackController.backward();
+                wheelController.backward();
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported direction");

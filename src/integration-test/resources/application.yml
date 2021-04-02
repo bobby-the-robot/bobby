@@ -14,14 +14,14 @@ sensor:
     interval: 1000
 
 motion:
-  track:
+  wheel:
     pin:
       right:
-        front: 3
-        rear: 4
+        forward: 3
+        back: 4
       left:
-        front: 5
-        rear: 6
+        forward: 5
+        back: 6
 
 remote:
   controllerUrl: ws://bobby-remote-stage.herokuapp.com/client

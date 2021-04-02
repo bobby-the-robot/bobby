@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties("motion.track.pin")
-public class TrackConfigurationProperties {
+@ConfigurationProperties("motion.wheel.pin")
+public class WheelConfigurationProperties {
 
     private Side right;
     private Side left;
@@ -15,7 +15,7 @@ public class TrackConfigurationProperties {
     @Data
     public static class Side {
 
-        private int front;
-        private int rear;
+        private int forward;
+        private int back;
     }
 }

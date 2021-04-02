@@ -2,10 +2,10 @@ package bobby.motion.impl;
 
 import lombok.RequiredArgsConstructor;
 import bobby.core.Output;
-import bobby.motion.Track;
+import bobby.motion.Wheel;
 
 @RequiredArgsConstructor
-public class TrackImpl implements Track {
+public class WheelImpl implements Wheel {
 
     private final Output forwardOutput;
     private final Output backwardOutput;

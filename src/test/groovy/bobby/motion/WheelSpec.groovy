@@ -1,21 +1,21 @@
 package bobby.motion
 
 import bobby.core.Output
-import bobby.motion.impl.TrackImpl
+import bobby.motion.impl.WheelImpl
 import spock.lang.Specification
 import spock.lang.Subject
 
-class TrackSpec extends Specification {
+class WheelSpec extends Specification {
 
     Output forwardOutput = Mock Output
     Output backwardOutput = Mock Output
 
     @Subject
-    Track track = new TrackImpl(forwardOutput, backwardOutput)
+    Wheel wheel = new WheelImpl(forwardOutput, backwardOutput)
 
     def "test forward()"() {
         when:
-        track.forward()
+        wheel.forward()
 
         then:
         1 * forwardOutput.pulse()
@@ -24,7 +24,7 @@ class TrackSpec extends Specification {
 
     def "test backward()"() {
         when:
-        track.backward()
+        wheel.backward()
 
         then:
         1 * backwardOutput.pulse()

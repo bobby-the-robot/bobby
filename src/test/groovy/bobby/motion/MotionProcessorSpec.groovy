@@ -7,10 +7,10 @@ import spock.lang.Subject
 class MotionProcessorSpec extends Specification {
 
     Route route = Mock Route
-    TrackController trackController = Mock TrackController
+    WheelController wheelController = Mock WheelController
 
     @Subject
-    MotionProcessor motionProcessor = new MotionProcessorImpl(route, trackController)
+    MotionProcessor motionProcessor = new MotionProcessorImpl(route, wheelController)
 
     def "test no motion"() {
         when:
@@ -30,7 +30,7 @@ class MotionProcessorSpec extends Specification {
 
         then:
         1 * route.nextSequence() >> steps
-        1 * trackController.forward()
+        1 * wheelController.forward()
         0 * _
     }
 
@@ -43,7 +43,7 @@ class MotionProcessorSpec extends Specification {
 
         then:
         1 * route.nextSequence() >> steps
-        1 * trackController.backward()
+        1 * wheelController.backward()
         0 * _
     }
 
@@ -60,9 +60,9 @@ class MotionProcessorSpec extends Specification {
 
         then:
         1 * route.nextSequence() >> steps
-        1 * trackController.right()
-        1 * trackController.forward()
-        1 * trackController.left()
+        1 * wheelController.right()
+        1 * wheelController.forward()
+        1 * wheelController.left()
         0 * _
     }
 }

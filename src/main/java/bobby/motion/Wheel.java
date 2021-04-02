@@ -1,6 +1,6 @@
 package bobby.motion;
 
-public interface Track {
+public interface Wheel {
 
     void forward();
 

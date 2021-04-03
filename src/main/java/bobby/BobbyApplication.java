@@ -46,6 +46,7 @@ public class BobbyApplication implements ApplicationRunner {
 			installTempLibrary();
 		} catch(Exception e) {
 			System.out.println("Failed to load camera library");
+			e.printStackTrace();
 		}
 
 		CameraConfiguration config = CameraConfiguration.cameraConfiguration()

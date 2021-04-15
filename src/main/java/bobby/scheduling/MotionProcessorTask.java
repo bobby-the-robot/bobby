@@ -13,6 +13,6 @@ public class MotionProcessorTask {
 
     @Scheduled(fixedRateString = "${operations.interval}")
     public void scheduleMotionProcessing() {
-        motionProcessor.process();
+        motionProcessor.processQueue();
     }
 }

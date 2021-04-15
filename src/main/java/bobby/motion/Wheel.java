@@ -2,7 +2,7 @@ package bobby.motion;
 
 public interface Wheel {
 
-    void forward();
+    void forwardPulse();
 
-    void backward();
+    void backwardPulse();
 }

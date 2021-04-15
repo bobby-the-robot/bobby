@@ -14,41 +14,41 @@ class WheelControllerSpec extends Specification {
 
     def "test forward()"() {
         when:
-        wheelController.forward()
+        wheelController.forwardPulse()
 
         then:
-        1 * rightWheel.forward()
-        1 * leftWheel.forward()
+        1 * rightWheel.forwardPulse()
+        1 * leftWheel.forwardPulse()
         0 * _
     }
 
     def "test right()"() {
         when:
-        wheelController.right()
+        wheelController.rightPulse()
 
         then:
-        1 * rightWheel.forward()
-        1 * leftWheel.backward()
+        1 * rightWheel.forwardPulse()
+        1 * leftWheel.backwardPulse()
         0 * _
     }
 
     def "test left()"() {
         when:
-        wheelController.left()
+        wheelController.leftPulse()
 
         then:
-        1 * rightWheel.backward()
-        1 * leftWheel.forward()
+        1 * rightWheel.backwardPulse()
+        1 * leftWheel.forwardPulse()
         0 * _
     }
 
     def "test backward()"() {
         when:
-        wheelController.backward()
+        wheelController.backwardPulse()
 
         then:
-        1 * rightWheel.backward()
-        1 * leftWheel.backward()
+        1 * rightWheel.backwardPulse()
+        1 * leftWheel.backwardPulse()
         0 * _
     }
 }

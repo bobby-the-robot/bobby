@@ -15,7 +15,7 @@ class WheelSpec extends Specification {
 
     def "test forward()"() {
         when:
-        wheel.forward()
+        wheel.forwardPulse()
 
         then:
         1 * forwardOutput.pulse()
@@ -24,7 +24,7 @@ class WheelSpec extends Specification {
 
     def "test backward()"() {
         when:
-        wheel.backward()
+        wheel.backwardPulse()
 
         then:
         1 * backwardOutput.pulse()

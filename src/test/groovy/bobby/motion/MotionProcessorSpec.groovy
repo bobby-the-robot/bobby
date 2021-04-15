@@ -14,7 +14,7 @@ class MotionProcessorSpec extends Specification {
 
     def "test no motion"() {
         when:
-        motionProcessor.process()
+        motionProcessor.processQueue()
 
         then:
         1 * route.nextSequence() >> []
@@ -26,11 +26,11 @@ class MotionProcessorSpec extends Specification {
         List<Step> steps = [new Step(Speed.AVERAGE, Direction.FORWARD)]
 
         when:
-        motionProcessor.process()
+        motionProcessor.processQueue()
 
         then:
         1 * route.nextSequence() >> steps
-        1 * wheelController.forward()
+        1 * wheelController.forwardPulse()
         0 * _
     }
 
@@ -39,11 +39,11 @@ class MotionProcessorSpec extends Specification {
         List<Step> steps = [new Step(Speed.AVERAGE, Direction.BACK)]
 
         when:
-        motionProcessor.process()
+        motionProcessor.processQueue()
 
         then:
         1 * route.nextSequence() >> steps
-        1 * wheelController.backward()
+        1 * wheelController.backwardPulse()
         0 * _
     }
 
@@ -56,13 +56,13 @@ class MotionProcessorSpec extends Specification {
         ]
 
         when:
-        motionProcessor.process()
+        motionProcessor.processQueue()
 
         then:
         1 * route.nextSequence() >> steps
-        1 * wheelController.right()
-        1 * wheelController.forward()
-        1 * wheelController.left()
+        1 * wheelController.rightPulse()
+        1 * wheelController.forwardPulse()
+        1 * wheelController.leftPulse()
         0 * _
     }
 }

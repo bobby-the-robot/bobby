@@ -11,12 +11,12 @@ public class WheelImpl implements Wheel {
     private final Output backwardOutput;
 
     @Override
-    public void forward() {
+    public void forwardPulse() {
         forwardOutput.pulse();
     }
 
     @Override
-    public void backward() {
+    public void backwardPulse() {
         backwardOutput.pulse();
     }
 }

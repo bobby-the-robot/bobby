@@ -16,7 +16,7 @@ public class MotionProcessorImpl implements MotionProcessor {
     private final WheelController wheelController;
 
     @Override
-    public void process() {
+    public void processQueue() {
         List<Step> sequence = route.nextSequence();
 
         sequence.stream()
@@ -33,16 +33,16 @@ public class MotionProcessorImpl implements MotionProcessor {
 
         switch(direction) {
             case FORWARD:
-                wheelController.forward();
+                wheelController.forwardPulse();
                 break;
             case RIGHT:
-                wheelController.right();
+                wheelController.rightPulse();
                 break;
             case LEFT:
-                wheelController.left();
+                wheelController.leftPulse();
                 break;
             case BACK:
-                wheelController.backward();
+                wheelController.backwardPulse();
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported direction");

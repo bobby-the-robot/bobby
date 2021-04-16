@@ -8,8 +8,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import bobby.core.Controller;
 import uk.co.caprica.picam.Camera;
 import uk.co.caprica.picam.CameraConfiguration;
 import uk.co.caprica.picam.FilePictureCaptureHandler;
@@ -20,13 +18,10 @@ import java.io.File;
 import static uk.co.caprica.picam.PicamNativeLibrary.installTempLibrary;
 
 @Slf4j
-@EnableScheduling
 @SpringBootApplication
 @RequiredArgsConstructor
 @EnableConfigurationProperties
 public class BobbyApplication implements ApplicationRunner {
-
-	private final Controller controller;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BobbyApplication.class, args);
@@ -37,7 +32,6 @@ public class BobbyApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) {
 		camera();
 		log.info("Starting the bobby app...");
-		controller.init();
 	}
 
 	@SneakyThrows

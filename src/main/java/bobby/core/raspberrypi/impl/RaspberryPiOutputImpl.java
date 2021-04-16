@@ -16,4 +16,14 @@ public class RaspberryPiOutputImpl implements Output {
     public void pulse() {
         gpioPinDigitalOutput.pulse(interval);
     }
+
+    @Override
+    public void high() {
+        gpioPinDigitalOutput.high();
+    }
+
+    @Override
+    public void low() {
+        gpioPinDigitalOutput.low();
+    }
 }

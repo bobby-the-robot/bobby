@@ -18,26 +18,56 @@ public class WheelControllerImpl implements WheelController {
     }
 
     @Override
-    public void forwardPulse() {
+    public void pulseForward() {
         rightWheel.forwardPulse();
         leftWheel.forwardPulse();
     }
 
     @Override
-    public void rightPulse() {
+    public void pulseRight() {
         rightWheel.forwardPulse();
         leftWheel.backwardPulse();
     }
 
     @Override
-    public void leftPulse() {
+    public void pulseLeft() {
         rightWheel.backwardPulse();
         leftWheel.forwardPulse();
     }
 
     @Override
-    public void backwardPulse() {
+    public void pulseBackward() {
         rightWheel.backwardPulse();
         leftWheel.backwardPulse();
+    }
+
+    @Override
+    public void moveForward() {
+        rightWheel.moveForward();
+        leftWheel.moveForward();
+    }
+
+    @Override
+    public void moveBackward() {
+        rightWheel.moveBackward();
+        leftWheel.moveBackward();
+    }
+
+    @Override
+    public void turnRight() {
+        rightWheel.moveForward();
+        leftWheel.moveBackward();
+    }
+
+    @Override
+    public void turnLeft() {
+        rightWheel.moveBackward();
+        leftWheel.moveForward();
+    }
+
+    @Override
+    public void stop() {
+        rightWheel.stop();
+        leftWheel.stop();
     }
 }

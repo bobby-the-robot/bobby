@@ -19,4 +19,20 @@ public class WheelImpl implements Wheel {
     public void backwardPulse() {
         backwardOutput.pulse();
     }
+
+    @Override
+    public void moveForward() {
+        forwardOutput.high();
+    }
+
+    @Override
+    public void moveBackward() {
+        backwardOutput.high();
+    }
+
+    @Override
+    public void stop() {
+        forwardOutput.low();
+        backwardOutput.low();
+    }
 }

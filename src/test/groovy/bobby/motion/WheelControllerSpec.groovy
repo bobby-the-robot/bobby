@@ -14,7 +14,7 @@ class WheelControllerSpec extends Specification {
 
     def "test forward()"() {
         when:
-        wheelController.forwardPulse()
+        wheelController.pulseForward()
 
         then:
         1 * rightWheel.forwardPulse()
@@ -24,7 +24,7 @@ class WheelControllerSpec extends Specification {
 
     def "test right()"() {
         when:
-        wheelController.rightPulse()
+        wheelController.pulseRight()
 
         then:
         1 * rightWheel.forwardPulse()
@@ -34,7 +34,7 @@ class WheelControllerSpec extends Specification {
 
     def "test left()"() {
         when:
-        wheelController.leftPulse()
+        wheelController.pulseLeft()
 
         then:
         1 * rightWheel.backwardPulse()
@@ -44,11 +44,61 @@ class WheelControllerSpec extends Specification {
 
     def "test backward()"() {
         when:
-        wheelController.backwardPulse()
+        wheelController.pulseBackward()
 
         then:
         1 * rightWheel.backwardPulse()
         1 * leftWheel.backwardPulse()
+        0 * _
+    }
+
+    def "test moveForward()" () {
+        when:
+        wheelController.moveForward()
+
+        then:
+        1 * rightWheel.moveForward()
+        1 * leftWheel.moveForward()
+        0 * _
+    }
+
+    def "test moveBackward()" () {
+        when:
+        wheelController.moveBackward()
+
+        then:
+        1 * rightWheel.moveBackward()
+        1 * leftWheel.moveBackward()
+        0 * _
+    }
+
+    def "test turnRight()"() {
+        when:
+        wheelController.turnRight()
+
+        then:
+        1 * rightWheel.moveForward()
+        1 * leftWheel.moveBackward()
+        0 * _
+    }
+
+    def "test turnLeft()"() {
+        when:
+        wheelController.turnLeft()
+
+        then:
+        1 * rightWheel.moveBackward()
+        1 * leftWheel.moveForward()
+        0 * _
+    }
+
+    def "test stop()"() {
+        when:
+        wheelController.stop()
+
+        then:
+        1 * rightWheel.stop()
+        1 * leftWheel.stop()
         0 * _
     }
 }

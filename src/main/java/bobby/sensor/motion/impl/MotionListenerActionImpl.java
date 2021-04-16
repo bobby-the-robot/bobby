@@ -1,29 +1,33 @@
 package bobby.sensor.motion.impl;
 
-import lombok.Getter;
+import bobby.motion.Direction;
+import bobby.motion.MotionProcessor;
+import bobby.motion.Speed;
+import bobby.motion.Step;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import bobby.sensor.motion.MotionListenerAction;
-import bobby.sensor.motion.MotionSensorModule;
+
+import java.time.Instant;
 
 @Slf4j
-@Component
+@RequiredArgsConstructor
 public class MotionListenerActionImpl implements MotionListenerAction {
 
-    @Getter
-    private final int pin;
-    private final MotionSensorModule motionSensorModule;
+    private final int eventInterval;
+    private final MotionProcessor motionProcessor;
 
-    public MotionListenerActionImpl(@Value("${sensor.motion.pin}") int pin,
-                                    MotionSensorModule motionSensorModule) {
-        this.pin = pin;
-        this.motionSensorModule = motionSensorModule;
-    }
+    private Instant lastExecuted;
 
     @Override
     public void run() {
         log.info(" --> Motion detected!");
-        motionSensorModule.registerEvent();
+        Instant now = Instant.now();
+
+        if (lastExecuted == null || now.minusMillis(eventInterval).isAfter(lastExecuted)) {
+            lastExecuted = now;
+            Step forward = new Step(Speed.AVERAGE, Direction.FORWARD);
+            motionProcessor.pulse(forward);
+        }
     }
 }

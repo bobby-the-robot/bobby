@@ -2,11 +2,21 @@ package bobby.motion;
 
 public interface WheelController {
 
-    void forwardPulse();
+    void pulseForward();
 
-    void rightPulse();
+    void pulseRight();
 
-    void leftPulse();
+    void pulseLeft();
 
-    void backwardPulse();
+    void pulseBackward();
+
+    void moveForward();
+
+    void turnRight();
+
+    void turnLeft();
+
+    void moveBackward();
+
+    void stop();
 }

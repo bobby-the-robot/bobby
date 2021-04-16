@@ -12,37 +12,51 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MotionProcessorImpl implements MotionProcessor {
 
-    private final Route route;
     private final WheelController wheelController;
 
     @Override
-    public void processQueue() {
-        List<Step> sequence = route.nextSequence();
-
-        sequence.stream()
-                .forEach(this::move);
-    }
-
-    private void move(Step step) {
-        if (step == null) {
-            return;
-        }
-
+    public void move(Step step) {
         Direction direction = step.getDirection();
         log.info("Moving " + direction);
 
         switch(direction) {
             case FORWARD:
-                wheelController.forwardPulse();
+                wheelController.moveForward();
                 break;
             case RIGHT:
-                wheelController.rightPulse();
+                wheelController.turnRight();
                 break;
             case LEFT:
-                wheelController.leftPulse();
+                wheelController.turnLeft();
                 break;
             case BACK:
-                wheelController.backwardPulse();
+                wheelController.moveBackward();
+                break;
+            case STOP:
+                wheelController.stop();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported direction");
+        }
+    }
+
+    @Override
+    public void pulse(Step step) {
+        Direction direction = step.getDirection();
+        log.info("Pulsing " + direction);
+
+        switch(direction) {
+            case FORWARD:
+                wheelController.pulseForward();
+                break;
+            case RIGHT:
+                wheelController.pulseRight();
+                break;
+            case LEFT:
+                wheelController.pulseLeft();
+                break;
+            case BACK:
+                wheelController.pulseBackward();
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported direction");

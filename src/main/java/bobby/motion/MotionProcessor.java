@@ -2,5 +2,7 @@ package bobby.motion;
 
 public interface MotionProcessor {
 
-    void processQueue();
+    void move(Step step);
+
+    void pulse(Step step);
 }

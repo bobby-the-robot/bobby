@@ -1,29 +1,33 @@
 package bobby.sensor.sound.impl;
 
-import lombok.Getter;
+import bobby.motion.Direction;
+import bobby.motion.MotionProcessor;
+import bobby.motion.Speed;
+import bobby.motion.Step;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import bobby.sensor.sound.SoundListenerAction;
-import bobby.sensor.sound.SoundSensorModule;
+
+import java.time.Instant;
 
 @Slf4j
-@Component
+@RequiredArgsConstructor
 public class SoundListenerActionImpl implements SoundListenerAction {
 
-    @Getter
-    private final int pin;
-    private final SoundSensorModule soundSensorModule;
+    private final int eventInterval;
+    private final MotionProcessor motionProcessor;
 
-    public SoundListenerActionImpl(@Value("${sensor.sound.pin}") int pin,
-                                   SoundSensorModule soundSensorModule) {
-        this.pin = pin;
-        this.soundSensorModule = soundSensorModule;
-    }
+    private Instant lastExecuted;
 
     @Override
     public void run() {
         log.info(" --> Sound detected!");
-        soundSensorModule.registerEvent();
+        Instant now = Instant.now();
+
+        if (lastExecuted == null || now.minusMillis(eventInterval).isAfter(lastExecuted)) {
+            lastExecuted = now;
+            Step backward = new Step(Speed.SLOW, Direction.BACK);
+            motionProcessor.pulse(backward);
+        }
     }
 }

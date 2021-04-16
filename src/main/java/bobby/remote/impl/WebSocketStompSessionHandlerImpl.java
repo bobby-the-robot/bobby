@@ -1,10 +1,7 @@
 package bobby.remote.impl;
 
 import bobby.dto.MotionDto;
-import bobby.motion.Direction;
-import bobby.motion.Route;
-import bobby.motion.Speed;
-import bobby.motion.Step;
+import bobby.motion.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -23,7 +20,7 @@ public class WebSocketStompSessionHandlerImpl extends StompSessionHandlerAdapter
 
     private static final String DESTINATION = "/client/direction";
 
-    private final Route route;
+    private final MotionProcessor motionProcessor;
 
     @Override
     public void afterConnected(StompSession session, StompHeaders stompHeaders) {
@@ -48,7 +45,6 @@ public class WebSocketStompSessionHandlerImpl extends StompSessionHandlerAdapter
         MotionDto motionDto = (MotionDto) payload;
         Direction direction = Direction.valueOf(motionDto.getDirection().name());
         Step step = new Step(Speed.AVERAGE, direction);
-        List<Step> sequence = List.of(step);
-        route.addSequence(sequence);
+        motionProcessor.move(step);
     }
 }

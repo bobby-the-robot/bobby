@@ -11,29 +11,13 @@ class ControllerSpec extends Specification {
     OutputFactory outputFactory = Mock OutputFactory
     ListenerFactory listenerFactory = Mock ListenerFactory
     ListenerAction action = Mock ListenerAction
-    List<ListenerAction> inputActions = [action, action, action]
 
     @Subject
-    Controller controller = new RaspberryPiControllerImpl(inputFactory, outputFactory,  listenerFactory, inputActions)
+    Controller controller = new RaspberryPiControllerImpl(inputFactory, outputFactory,  listenerFactory)
 
     Input input = Mock Input
     Output output = Mock Output
     Listener listener = Mock Listener
-
-    def "test init()"() {
-        given:
-        int pin = 1
-
-        when:
-        controller.init()
-
-        then:
-        3 * listenerFactory.getInstance(action) >> listener
-        3 * action.pin >> pin
-        3 * inputFactory.getInstance(pin) >> input
-        3 * input.addListener(listener)
-        0 * _
-    }
 
     def "test initInput()"() {
         given:

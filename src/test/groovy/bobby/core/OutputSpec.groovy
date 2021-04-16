@@ -21,4 +21,22 @@ class OutputSpec extends Specification {
         1 * gpioPinDigitalOutput.pulse(interval)
         0 * _
     }
+
+    def "test high()" () {
+        when:
+        output.high()
+
+        then:
+        1 * gpioPinDigitalOutput.high()
+        0 * _
+    }
+
+    def "test low()" () {
+        when:
+        output.low()
+
+        then:
+        1 * gpioPinDigitalOutput.low()
+        0 * _
+    }
 }

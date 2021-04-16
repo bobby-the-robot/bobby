@@ -30,4 +30,32 @@ class WheelSpec extends Specification {
         1 * backwardOutput.pulse()
         0 * _
     }
+
+    def "test moveForward()"() {
+        when:
+        wheel.moveForward()
+
+        then:
+        1 * forwardOutput.high()
+        0 * _
+    }
+
+    def "test moveBackward()"() {
+        when:
+        wheel.moveBackward()
+
+        then:
+        1 * backwardOutput.high()
+        0 * _
+    }
+
+    def "test stop()"() {
+        when:
+        wheel.stop()
+
+        then:
+        1 * forwardOutput.low()
+        1 * backwardOutput.low()
+        0 * _
+    }
 }

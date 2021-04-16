@@ -8,6 +8,6 @@ public class MotionDto {
     private Direction direction;
 
     public enum Direction {
-        FORWARD, LEFT, RIGHT, BACK
+        FORWARD, LEFT, RIGHT, BACK, STOP
     }
 }

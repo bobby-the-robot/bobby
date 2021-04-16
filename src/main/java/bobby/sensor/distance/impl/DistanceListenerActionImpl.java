@@ -1,29 +1,23 @@
 package bobby.sensor.distance.impl;
 
-import lombok.Getter;
+import bobby.motion.Direction;
+import bobby.motion.MotionProcessor;
+import bobby.motion.Speed;
+import bobby.motion.Step;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import bobby.sensor.distance.DistanceListenerAction;
-import bobby.sensor.distance.DistanceSensorModule;
 
 @Slf4j
-@Component
+@RequiredArgsConstructor
 public class DistanceListenerActionImpl implements DistanceListenerAction {
 
-    @Getter
-    private final int pin;
-    private final DistanceSensorModule distanceSensorModule;
-
-    public DistanceListenerActionImpl(@Value("${sensor.distance.pin}") int pin,
-                                      DistanceSensorModule distanceSensorModule) {
-        this.pin = pin;
-        this.distanceSensorModule = distanceSensorModule;
-    }
+    private final MotionProcessor motionProcessor;
 
     @Override
     public void run() {
         log.info(" --> Obstacle detected!");
-        distanceSensorModule.registerEvent();
+        Step right = new Step(Speed.FAST, Direction.RIGHT);
+        motionProcessor.pulse(right);
     }
 }

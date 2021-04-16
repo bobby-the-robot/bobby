@@ -3,9 +3,9 @@ package bobby.configuration;
 import bobby.core.Controller;
 import bobby.motion.MotionProcessor;
 import bobby.sensor.ListenerAction;
-import bobby.sensor.distance.impl.DistanceListenerActionImpl;
-import bobby.sensor.motion.impl.MotionListenerActionImpl;
-import bobby.sensor.sound.impl.SoundListenerActionImpl;
+import bobby.sensor.distance.DistanceListenerAction;
+import bobby.sensor.motion.MotionListenerAction;
+import bobby.sensor.sound.SoundListenerAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ public class SensorControllerConfiguration {
     @Bean
     public ListenerAction distanceListenerAction(@Value("${sensor.distance.pin}") int pin,
                                                  MotionProcessor motionProcessor) {
-        ListenerAction action = new DistanceListenerActionImpl(motionProcessor);
+        ListenerAction action = new DistanceListenerAction(motionProcessor);
         controller.initInput(pin, action);
         return action;
     }
@@ -29,7 +29,7 @@ public class SensorControllerConfiguration {
     public ListenerAction motionListenerAction(@Value("${sensor.motion.pin}") int pin,
                                                @Value("${sensor.motion.interval}") int eventInterval,
                                                MotionProcessor motionProcessor) {
-        ListenerAction action = new MotionListenerActionImpl(eventInterval, motionProcessor);
+        ListenerAction action = new MotionListenerAction(eventInterval, motionProcessor);
         controller.initInput(pin, action);
         return action;
     }
@@ -38,7 +38,7 @@ public class SensorControllerConfiguration {
     public ListenerAction soundListenerAction(@Value("${sensor.sound.pin}") int pin,
                                               @Value("${sensor.sound.interval}") int eventInterval,
                                               MotionProcessor motionProcessor) {
-        ListenerAction action = new SoundListenerActionImpl(eventInterval, motionProcessor);
+        ListenerAction action = new SoundListenerAction(eventInterval, motionProcessor);
         controller.initInput(pin, action);
         return action;
     }

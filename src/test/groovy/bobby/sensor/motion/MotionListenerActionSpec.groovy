@@ -4,7 +4,7 @@ import bobby.motion.Direction
 import bobby.motion.MotionProcessor
 import bobby.motion.Speed
 import bobby.motion.Step
-import bobby.sensor.motion.impl.MotionListenerActionImpl
+import bobby.sensor.ListenerAction
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -13,14 +13,14 @@ class MotionListenerActionSpec extends Specification {
     MotionProcessor motionProcessor = Mock MotionProcessor
 
     @Subject
-    MotionListenerAction motionListenerAction = new MotionListenerActionImpl(1000, motionProcessor)
+    ListenerAction listenerAction = new MotionListenerAction(1000, motionProcessor)
 
     def "test run()"() {
         given:
         Step forward = new Step(Speed.AVERAGE, Direction.FORWARD)
 
         when:
-        motionListenerAction.run()
+        listenerAction.run()
 
         then:
         1 * motionProcessor.pulse(forward)
@@ -32,8 +32,8 @@ class MotionListenerActionSpec extends Specification {
         Step forward = new Step(Speed.AVERAGE, Direction.FORWARD)
 
         when:
-        motionListenerAction.run()
-        motionListenerAction.run()
+        listenerAction.run()
+        listenerAction.run()
 
         then: 'only 1 sequence is added'
         1 * motionProcessor.pulse(forward)
@@ -42,12 +42,12 @@ class MotionListenerActionSpec extends Specification {
 
     def "test registerEvent() for 2 sequential events matching interval"() {
         given: 'event interval is 0'
-        MotionListenerAction motionListenerAction = new MotionListenerActionImpl(0, motionProcessor)
+        ListenerAction listenerAction = new MotionListenerAction(0, motionProcessor)
         Step forward = new Step(Speed.AVERAGE, Direction.FORWARD)
 
         when:
-        motionListenerAction.run()
-        motionListenerAction.run()
+        listenerAction.run()
+        listenerAction.run()
 
         then: '2 sequences are added'
         2 * motionProcessor.pulse(forward)

@@ -19,13 +19,11 @@ motion:
   wheel:
     pin:
       right:
+        forward: 25
+        back: 26
+      left:
         forward: 3
         back: 4
-      left:
-        #forward: 5
-        forward: 25
-        #back: 6
-        back: 26
 
 remote:
   controllerUrl: ws://bobby-remote-stage.herokuapp.com/client

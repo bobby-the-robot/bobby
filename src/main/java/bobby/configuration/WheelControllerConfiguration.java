@@ -8,13 +8,13 @@ import bobby.core.Output;
 import bobby.motion.Wheel;
 import bobby.motion.impl.WheelImpl;
 
-import static bobby.configuration.WheelConfigurationProperties.Side;
+import static bobby.configuration.WheelConfiguration.Side;
 
 @Configuration
 @RequiredArgsConstructor
 public class WheelControllerConfiguration {
 
-    private final WheelConfigurationProperties wheelConfiguration;
+    private final WheelConfiguration wheelConfiguration = new WheelConfiguration();
     private final Controller controller;
 
     @Bean

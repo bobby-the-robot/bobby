@@ -1,5 +1,9 @@
 package bobby.configuration;
 
+import bobby.motion.MotionProcessor;
+import bobby.motion.WheelController;
+import bobby.motion.impl.MotionProcessorImpl;
+import bobby.motion.impl.WheelControllerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,18 +22,27 @@ public class WheelControllerConfiguration {
     private final Controller controller;
 
     @Bean
-    public Wheel rightWheel() {
-        Side right = wheelConfiguration.getRight();
-        Output rightForwardOutput = controller.initOutput(right.getForward());
-        Output rightBackwardOutput = controller.initOutput(right.getBack());
-        return new WheelImpl(rightForwardOutput, rightBackwardOutput);
+    public MotionProcessor motionProcessor() {
+        return new MotionProcessorImpl(initWheelController());
     }
 
-    @Bean
-    public Wheel leftWheel() {
+    private Wheel initRightWheel() {
+        Side right = wheelConfiguration.getRight();
+        Output forwardOutput = controller.initOutput(right.getForward());
+        Output backwardOutput = controller.initOutput(right.getBack());
+        return new WheelImpl(forwardOutput, backwardOutput);
+    }
+
+    private Wheel initLeftWheel() {
         Side left = wheelConfiguration.getLeft();
-        Output leftForwardOutput = controller.initOutput(left.getForward());
-        Output leftBackwardOutput = controller.initOutput(left.getBack());
-        return new WheelImpl(leftForwardOutput, leftBackwardOutput);
+        Output forwardOutput = controller.initOutput(left.getForward());
+        Output backwardOutput = controller.initOutput(left.getBack());
+        return new WheelImpl(forwardOutput, backwardOutput);
+    }
+
+    private WheelController initWheelController() {
+        Wheel rightWheel = initRightWheel();
+        Wheel leftWheel = initLeftWheel();
+        return new WheelControllerImpl(rightWheel, leftWheel);
     }
 }

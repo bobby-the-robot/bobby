@@ -2,13 +2,12 @@ package bobby.motion.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import bobby.motion.*;
-
-import java.util.List;
+import bobby.motion.Direction;
+import bobby.motion.MotionProcessor;
+import bobby.motion.WheelController;
+import bobby.motion.Step;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class MotionProcessorImpl implements MotionProcessor {
 

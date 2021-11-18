@@ -4,16 +4,5 @@ logging:
 operations:
   interval: 1000
 
-sensor:
-  distance:
-    #pin: 0
-    pin: 24
-  motion:
-    pin: 1
-    interval: 1000
-  sound:
-    pin: 2
-    interval: 1000
-
 remote:
   controllerUrl: ws://bobby-remote-stage.herokuapp.com/client

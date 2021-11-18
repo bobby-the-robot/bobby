@@ -3,9 +3,6 @@ package bobby.core.raspberrypi.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import bobby.core.*;
-import bobby.sensor.ListenerAction;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

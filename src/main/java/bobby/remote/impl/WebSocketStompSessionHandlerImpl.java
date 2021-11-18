@@ -8,13 +8,10 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class WebSocketStompSessionHandlerImpl extends StompSessionHandlerAdapter {
 

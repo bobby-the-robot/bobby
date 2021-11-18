@@ -13,9 +13,17 @@ import bobby.sensor.ListenerAction;
 import bobby.sensor.distance.DistanceListenerAction;
 import bobby.sensor.motion.MotionListenerAction;
 import bobby.sensor.sound.SoundListenerAction;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.web.socket.client.WebSocketClient;
+import org.springframework.web.socket.client.standard.StandardWebSocketClient;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
+
+import static bobby.configuration.Constants.STOMP_CONTROLLER_URL;
 
 @Configuration
 public class Config {
@@ -24,35 +32,39 @@ public class Config {
     private final WheelConfiguration wheelConfiguration;
     private final SensorConfiguration sensorConfiguration;
     private final MotionProcessor motionProcessor;
+    private final StompSessionHandlerAdapter stompSessionHandler;
 
     public Config(Controller controller) {
         this.controller = controller;
         this.wheelConfiguration = new WheelConfiguration();
         this.sensorConfiguration = new SensorConfiguration();
         this.motionProcessor = new MotionProcessorImpl(initWheelController());
+        this.stompSessionHandler = new WebSocketStompSessionHandlerImpl(motionProcessor);
+
+        initDistanceListenerAction();
+        initMotionListenerAction();
+        initSoundListenerAction();
+        configureStompClient();
     }
 
     @Bean
-    public StompSessionHandlerAdapter stompSessionHandlerAdapter() {
-        return new WebSocketStompSessionHandlerImpl(motionProcessor);
+    public GpioController gpioController() {
+        return GpioFactory.getInstance();
     }
 
-    @Bean
-    public ListenerAction distanceListenerAction() {
+    private ListenerAction initDistanceListenerAction() {
         ListenerAction action = new DistanceListenerAction(motionProcessor);
         controller.initInput(sensorConfiguration.getDistance().getPin(), action);
         return action;
     }
 
-    @Bean
-    public ListenerAction motionListenerAction() {
+    private ListenerAction initMotionListenerAction() {
         ListenerAction action = new MotionListenerAction(sensorConfiguration.getMotion().getInterval(), motionProcessor);
         controller.initInput(sensorConfiguration.getMotion().getPin(), action);
         return action;
     }
 
-    @Bean
-    public ListenerAction soundListenerAction() {
+    private ListenerAction initSoundListenerAction() {
         ListenerAction action = new SoundListenerAction(sensorConfiguration.getSound().getInterval(), motionProcessor);
         controller.initInput(sensorConfiguration.getSound().getPin(), action);
         return action;
@@ -76,5 +88,12 @@ public class Config {
         Wheel rightWheel = initRightWheel();
         Wheel leftWheel = initLeftWheel();
         return new WheelControllerImpl(rightWheel, leftWheel);
+    }
+
+    private void configureStompClient() {
+        WebSocketClient client = new StandardWebSocketClient();
+        WebSocketStompClient stompClient = new WebSocketStompClient(client);
+        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+        stompClient.connect(STOMP_CONTROLLER_URL, stompSessionHandler);
     }
 }

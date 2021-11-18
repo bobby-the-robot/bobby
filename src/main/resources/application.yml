@@ -3,6 +3,3 @@ logging:
     name: logs/application.log
 operations:
   interval: 1000
-
-remote:
-  controllerUrl: ws://bobby-remote-stage.herokuapp.com/client

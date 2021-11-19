@@ -10,11 +10,10 @@ import spock.lang.Subject
 
 class OutputFactorySpec extends Specification {
 
-    long interval = 0
     GpioController gpioController = Mock GpioController
 
     @Subject
-    OutputFactory outputFactory = new RaspberryPiOutputFactoryImpl(interval, gpioController)
+    OutputFactory outputFactory = new RaspberryPiOutputFactoryImpl(gpioController)
 
     def "test getInstance()"() {
         given:

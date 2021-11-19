@@ -2,10 +2,11 @@ package bobby
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import bobby.configuration.ControllerTestConfiguration
 
-import bobby.core.Controller
 import spock.lang.Specification
 
 @SpringBootTest
@@ -13,13 +14,14 @@ import spock.lang.Specification
         BobbyApplication,
         ControllerTestConfiguration,
 ])
+@ActiveProfiles("integrationTest")
 class BobbyApplicationTest extends Specification {
 
     @Autowired
-    Controller controller
+    ApplicationContext applicationContext
 
     def "test context loads"() {
         expect:
-        controller != null
+        applicationContext != null
     }
 }

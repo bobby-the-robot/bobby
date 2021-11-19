@@ -1,10 +1,8 @@
 package bobby.core.raspberrypi.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import bobby.core.*;
 
-@Component
 @RequiredArgsConstructor
 public class RaspberryPiControllerImpl implements Controller {
 

@@ -1,7 +1,10 @@
 package bobby.configuration;
 
-import bobby.core.Controller;
-import bobby.core.Output;
+import bobby.core.*;
+import bobby.core.raspberrypi.impl.RaspberryPiControllerImpl;
+import bobby.core.raspberrypi.impl.RaspberryPiInputFactoryImpl;
+import bobby.core.raspberrypi.impl.RaspberryPiListenerFactoryImpl;
+import bobby.core.raspberrypi.impl.RaspberryPiOutputFactoryImpl;
 import bobby.motion.MotionProcessor;
 import bobby.motion.Wheel;
 import bobby.motion.WheelController;
@@ -15,8 +18,8 @@ import bobby.sensor.motion.MotionListenerAction;
 import bobby.sensor.sound.SoundListenerAction;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.web.socket.client.WebSocketClient;
@@ -26,7 +29,8 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 import static bobby.configuration.Constants.STOMP_CONTROLLER_URL;
 
 @Configuration
-public class Config {
+@Profile("!integrationTest")
+public class RaspberryBobby {
 
     private final Controller controller;
     private final WheelConfiguration wheelConfiguration;
@@ -34,8 +38,8 @@ public class Config {
     private final MotionProcessor motionProcessor;
     private final StompSessionHandlerAdapter stompSessionHandler;
 
-    public Config(Controller controller) {
-        this.controller = controller;
+    public RaspberryBobby() {
+        this.controller = initController();
         this.wheelConfiguration = new WheelConfiguration();
         this.sensorConfiguration = new SensorConfiguration();
         this.motionProcessor = new MotionProcessorImpl(initWheelController());
@@ -47,9 +51,12 @@ public class Config {
         configureStompClient();
     }
 
-    @Bean
-    public GpioController gpioController() {
-        return GpioFactory.getInstance();
+    private Controller initController() {
+        GpioController gpioController = GpioFactory.getInstance();
+        OutputFactory outputFactory = new RaspberryPiOutputFactoryImpl(gpioController);
+        InputFactory inputFactory = new RaspberryPiInputFactoryImpl(gpioController);
+        ListenerFactory listenerFactory = new RaspberryPiListenerFactoryImpl();
+        return new RaspberryPiControllerImpl(inputFactory, outputFactory, listenerFactory);
     }
 
     private ListenerAction initDistanceListenerAction() {

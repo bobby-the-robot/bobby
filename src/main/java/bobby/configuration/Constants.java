@@ -10,5 +10,7 @@ public abstract class Constants {
     public static int MOTION_SENSOR_PIN = 1;
     public static int SOUND_SENSOR_PIN = 2;
 
+    public static int OPERATIONS_INTERVAL = 1000;
+
     public static String STOMP_CONTROLLER_URL = "ws://bobby-remote-stage.herokuapp.com/client";
 }

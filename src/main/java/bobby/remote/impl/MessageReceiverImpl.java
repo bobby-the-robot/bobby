@@ -8,9 +8,11 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import static bobby.configuration.Constants.*;
 
+@Slf4j
 @RequiredArgsConstructor
 public class MessageReceiverImpl implements MessageReceiver {
 
@@ -25,6 +27,12 @@ public class MessageReceiverImpl implements MessageReceiver {
         factory.setVirtualHost(AMQP_VHOST);
         factory.setUsername(AMQP_USER);
         factory.setPassword(AMQP_PASSWORD);
+
+        log.info(AMQP_HOST);
+        log.info(String.valueOf(AMQP_PORT));
+        log.info(AMQP_VHOST);
+        log.info(AMQP_USER);
+        log.info(AMQP_PASSWORD);
 
         Connection connection = factory.newConnection();
 

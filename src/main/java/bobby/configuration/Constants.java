@@ -14,9 +14,9 @@ public abstract class Constants {
 
     public static final String MOTION_CONTROL_QUEUE_NAME = "motion.control";
 
-    public static final String AMQP_URI = System.getenv("amqp_url");
-    public static final String AMQP_LOGIN = System.getenv("amqp_login");
-    public static final String AMQP_PASSWORD = System.getenv("amqp_password");
+    public static final String AMQP_URI = System.getProperty("amqp_url");
+    public static final String AMQP_LOGIN = System.getProperty("amqp_login");
+    public static final String AMQP_PASSWORD = System.getProperty("amqp_password");
 
     public static final String STOMP_CONTROLLER_URL = "ws://bobby-remote-stage.herokuapp.com/client";
 }

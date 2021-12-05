@@ -9,8 +9,7 @@ import com.rabbitmq.client.DeliverCallback;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
-import static bobby.configuration.Constants.AMQP_URI;
-import static bobby.configuration.Constants.MOTION_CONTROL_QUEUE_NAME;
+import static bobby.configuration.Constants.*;
 
 @RequiredArgsConstructor
 public class MessageReceiverImpl implements MessageReceiver {
@@ -23,6 +22,8 @@ public class MessageReceiverImpl implements MessageReceiver {
         ConnectionFactory factory = new ConnectionFactory();
         Connection connection = factory.newConnection();
         factory.setUri(AMQP_URI);
+        factory.setUsername(AMQP_LOGIN);
+        factory.setPassword(AMQP_PASSWORD);
 
         try (Channel channel = connection.createChannel()) {
             channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);

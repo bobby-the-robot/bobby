@@ -14,11 +14,11 @@ public abstract class Constants {
 
     public static final String MOTION_CONTROL_QUEUE_NAME = "motion.control";
 
-    public static final String AMQP_HOST = System.getProperty("amqphost");
-    public static final int AMQP_PORT = 5672;
-    public static final String AMQP_VHOST = System.getProperty("amqpvhost");
-    public static final String AMQP_USER = System.getProperty("amqpuser");
-    public static final String AMQP_PASSWORD = System.getProperty("amqppassword");
+    public static final String AMQP_HOST = System.getenv("AMQP_HOST");
+    public static final int AMQP_PORT = Integer.parseInt(System.getenv("AMQP_PORT"));
+    public static final String AMQP_VHOST = System.getenv("AMQP_VHOST");
+    public static final String AMQP_USER = System.getenv("AMQP_USER");
+    public static final String AMQP_PASSWORD = System.getenv("AMQP_PASSWORD");
 
     public static final String STOMP_CONTROLLER_URL = "ws://bobby-remote-stage.herokuapp.com/client";
 }

@@ -15,6 +15,7 @@ public abstract class Constants {
     public static final String MOTION_CONTROL_QUEUE_NAME = "motion.control";
 
     public static final String AMQP_HOST = System.getProperty("amqp_host");
+    public static final int AMQP_PORT = 5672;
     public static final String AMQP_VHOST = System.getProperty("amqp_vhost");
     public static final String AMQP_USER = System.getProperty("amqp_user");
     public static final String AMQP_PASSWORD = System.getProperty("amqp_password");

@@ -22,6 +22,7 @@ public class MessageReceiverImpl implements MessageReceiver {
         ConnectionFactory factory = new ConnectionFactory();
         Connection connection = factory.newConnection();
         factory.setHost(AMQP_HOST);
+        factory.setPort(AMQP_PORT);
         factory.setVirtualHost(AMQP_VHOST);
         factory.setUsername(AMQP_USER);
         factory.setPassword(AMQP_PASSWORD);

@@ -28,12 +28,6 @@ public class MessageReceiverImpl implements MessageReceiver {
         factory.setUsername(AMQP_USER);
         factory.setPassword(AMQP_PASSWORD);
 
-        log.info(AMQP_HOST);
-        log.info(String.valueOf(AMQP_PORT));
-        log.info(AMQP_VHOST);
-        log.info(AMQP_USER);
-        log.info(AMQP_PASSWORD);
-
         Connection connection = factory.newConnection();
 
         try (Channel channel = connection.createChannel()) {
@@ -45,10 +39,8 @@ public class MessageReceiverImpl implements MessageReceiver {
                 System.out.println(" [x] Received '" + message + "'");
             };
 
-            while (true) {
-                log.info("event fired");
-                channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
-            }
+            log.info("event fired");
+            channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
         }
     }
 }

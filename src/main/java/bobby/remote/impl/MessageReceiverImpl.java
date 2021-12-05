@@ -34,6 +34,8 @@ public class MessageReceiverImpl implements MessageReceiver {
             channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
+            channel.basicQos(1);
+
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");

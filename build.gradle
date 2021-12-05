@@ -25,6 +25,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	//logging
 	implementation 'org.slf4j:slf4j-api:1.7.32'
+	implementation 'org.slf4j:slf4j-simple:1.7.32'
 	//testing
 	testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
 }

@@ -21,9 +21,10 @@ public class MessageReceiverImpl implements MessageReceiver {
     public void run() {
         ConnectionFactory factory = new ConnectionFactory();
         Connection connection = factory.newConnection();
-        factory.setUri(AMQP_URI);
-        //factory.setUsername(AMQP_LOGIN);
-        //factory.setPassword(AMQP_PASSWORD);
+        factory.setHost(AMQP_HOST);
+        factory.setVirtualHost(AMQP_VHOST);
+        factory.setUsername(AMQP_USER);
+        factory.setPassword(AMQP_PASSWORD);
 
         try (Channel channel = connection.createChannel()) {
             channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);

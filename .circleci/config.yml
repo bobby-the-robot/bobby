@@ -26,10 +26,10 @@ jobs:
           name: Run unit tests
           command: |
             ./gradlew test
-      - run:
-          name: Run integration tests
-          command: |
-            ./gradlew integrationTest
+#      - run:
+#          name: Run integration tests
+#          command: |
+#            ./gradlew integrationTest
       - run:
           name: Build fat jar
           command: |

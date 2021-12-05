@@ -30,19 +30,18 @@ public class MessageReceiverImpl implements MessageReceiver {
 
         Connection connection = factory.newConnection();
 
-        try (Channel channel = connection.createChannel()) {
-            channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);
-            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        Channel channel = connection.createChannel();
+        channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
-            channel.basicQos(1);
+        channel.basicQos(1);
 
-            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String message = new String(delivery.getBody(), "UTF-8");
-                System.out.println(" [x] Received '" + message + "'");
-            };
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println(" [x] Received '" + message + "'");
+        };
 
-            log.info("event fired");
-            channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
-        }
+        log.info("event fired");
+        channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
     }
 }

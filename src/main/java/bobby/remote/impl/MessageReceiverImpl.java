@@ -1,5 +1,8 @@
 package bobby.remote.impl;
 
+import bobby.motion.Direction;
+import bobby.motion.Speed;
+import bobby.motion.Step;
 import bobby.remote.MessageReceiver;
 import bobby.motion.MotionProcessor;
 import com.rabbitmq.client.Channel;
@@ -44,6 +47,9 @@ public class MessageReceiverImpl implements MessageReceiver {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received '" + message + "'");
+            Direction direction = Direction.valueOf(message);
+            Step step = new Step(Speed.AVERAGE, direction);
+            motionProcessor.move(step);
         };
 
         log.info("event fired");

@@ -19,6 +19,4 @@ public abstract class Constants {
     public static final String AMQP_VHOST = System.getenv("AMQP_VHOST");
     public static final String AMQP_USER = System.getenv("AMQP_USER");
     public static final String AMQP_PASSWORD = System.getenv("AMQP_PASSWORD");
-
-    public static final String STOMP_CONTROLLER_URL = "ws://bobby-remote-stage.herokuapp.com/client";
 }

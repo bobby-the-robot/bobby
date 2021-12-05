@@ -46,6 +46,7 @@ public class MessageReceiverImpl implements MessageReceiver {
             };
 
             while (true) {
+                log.info("event fired");
                 channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
             }
         }

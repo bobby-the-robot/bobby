@@ -37,8 +37,6 @@ public class MessageReceiverImpl implements MessageReceiver {
         Connection connection = factory.newConnection();
 
         Channel channel = connection.createChannel();
-        Map<String, Object> args = new HashMap<>();
-        args.put("x-message-ttl", 3000);
         channel.queueDeclare(MOTION_CONTROL_QUEUE_NAME, false, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 

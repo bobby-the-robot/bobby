@@ -66,4 +66,5 @@ jar {
 		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 		configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
 	}
+	archiveFileName = 'bobby.jar'
 }

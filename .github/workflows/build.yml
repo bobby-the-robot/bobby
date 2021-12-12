@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Unit tests
+      run: ./gradlew test
+    - name: Integration tests
+      run: ./gradlew integrationTest
+    - name: Assemble jar
+      run: ./gradlew assemble
+    - name: Step 3 - Use the Upload Artifact GitHub Action
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: build/libs

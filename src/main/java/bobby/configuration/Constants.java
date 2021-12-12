@@ -14,9 +14,5 @@ public abstract class Constants {
 
     public static final String MOTION_CONTROL_QUEUE_NAME = "motion.control";
 
-    public static final String AMQP_HOST = System.getenv("AMQP_HOST");
-    public static final int AMQP_PORT = Integer.parseInt(System.getenv("AMQP_PORT"));
-    public static final String AMQP_VHOST = System.getenv("AMQP_VHOST");
-    public static final String AMQP_USER = System.getenv("AMQP_USER");
-    public static final String AMQP_PASSWORD = System.getenv("AMQP_PASSWORD");
+    public static final String AMQP_URI = System.getenv("AMQP_URI");
 }

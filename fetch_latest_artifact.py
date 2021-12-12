@@ -21,4 +21,5 @@ zip_url_response = requests.get(url=zip_url, headers={'Authorization': 'token ' 
 open('./bobby.zip', 'wb').write(zip_url_response.content)
 with zipfile.ZipFile('./bobby.zip', 'r') as zip_ref:
     zip_ref.extractall('.')
+os.environ["AMQP_URI"] = "" #put amqp uri here
 os.system('java -jar bobby.jar')

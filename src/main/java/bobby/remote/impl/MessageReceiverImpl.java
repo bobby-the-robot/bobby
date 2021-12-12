@@ -6,17 +6,14 @@ import bobby.motion.Step;
 import bobby.remote.MessageReceiver;
 import bobby.motion.MotionProcessor;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static bobby.configuration.Constants.*;
+import static bobby.configuration.Constants.AMQP_URI;
+import static bobby.configuration.Constants.MOTION_CONTROL_QUEUE_NAME;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,17 +25,10 @@ public class MessageReceiverImpl implements MessageReceiver {
     @SneakyThrows
     public void run() {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(AMQP_HOST);
-        factory.setPort(AMQP_PORT);
-        factory.setVirtualHost(AMQP_VHOST);
-        factory.setUsername(AMQP_USER);
-        factory.setPassword(AMQP_PASSWORD);
+        factory.setUri(AMQP_URI);
 
-        Connection connection = factory.newConnection();
-
-        Channel channel = connection.createChannel();
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
-
+        Channel channel = factory.newConnection()
+                .createChannel();
         channel.basicQos(1);
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
@@ -49,7 +39,7 @@ public class MessageReceiverImpl implements MessageReceiver {
             motionProcessor.move(step);
         };
 
-        log.info("event fired");
+        log.info("Ready to process commands");
         channel.basicConsume(MOTION_CONTROL_QUEUE_NAME, true, deliverCallback, consumerTag -> { });
     }
 }

@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build artifact job
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       run: ./gradlew integrationTest
     - name: Assemble jar
       run: ./gradlew assemble
-    - name: Step 3 - Use the Upload Artifact GitHub Action
+    - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: artifacts
